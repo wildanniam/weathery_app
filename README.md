@@ -4,10 +4,10 @@ Aplikasi cuaca modern dan elegan yang dibangun dengan Flutter.
 
 ## Preview
 
-Light Mode
+###Light Mode
 <img width="321" alt="image" src="https://github.com/user-attachments/assets/5b93d13a-4b83-41c0-9ee5-8a7c2263b0d4" />
 
-Dark Mode
+###Dark Mode
 <img width="319" alt="image" src="https://github.com/user-attachments/assets/baa86ea9-3fa2-4b66-b92b-c310401fd7f0" />
 
 
