@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'screens/home_screen.dart';
+import 'screens/splash_screen.dart';
 import 'providers/weather_provider.dart';
 import 'providers/theme_provider.dart';
 import 'core/theme/app_theme.dart';
@@ -41,7 +42,7 @@ class MyApp extends StatelessWidget {
               theme: AppTheme.lightTheme,
               darkTheme: AppTheme.darkTheme,
               themeMode: themeProvider.themeMode,
-              home: const HomeScreen(),
+              home: const SplashScreen(),
             );
           },
         );
