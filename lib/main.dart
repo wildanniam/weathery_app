@@ -27,7 +27,7 @@ class MyApp extends StatelessWidget {
             title: 'Weatherify',
             theme: AppTheme.lightTheme,
             darkTheme: AppTheme.darkTheme,
-            themeMode: ThemeMode.system,
+            themeMode: ThemeMode.light,
             home: const HomeScreen(),
           ),
         );
