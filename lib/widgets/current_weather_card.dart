@@ -60,7 +60,7 @@ class CurrentWeatherCard extends StatelessWidget {
                           style: theme.textTheme.titleLarge?.copyWith(
                             color: theme.brightness == Brightness.dark
                                 ? const Color(0xFF90CAF9) // Dark mode
-                                : Colors.white,
+                                : Colors.white, // Light mode
                             fontWeight: FontWeight.bold,
                           ),
                         ),
@@ -71,7 +71,7 @@ class CurrentWeatherCard extends StatelessWidget {
                             color: theme.brightness == Brightness.dark
                                 ? const Color(0xFF64B5F6)
                                     .withAlpha(179) // Dark mode
-                                : Colors.white.withAlpha(179),
+                                : Colors.white.withAlpha(179), // Light mode
                           ),
                         ),
                       ],
@@ -85,12 +85,14 @@ class CurrentWeatherCard extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  _buildWeatherIcon(weather.weatherCode),
+                  _buildWeatherIcon(context, weather.weatherCode),
                   SizedBox(width: 16.w),
                   Text(
                     '${weather.temperature.toStringAsFixed(1)}°',
                     style: theme.textTheme.displayLarge?.copyWith(
-                      color: Colors.white,
+                      color: theme.brightness == Brightness.dark
+                          ? const Color(0xFF90CAF9) // Dark mode
+                          : Colors.white, // Light mode
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -102,7 +104,9 @@ class CurrentWeatherCard extends StatelessWidget {
               Text(
                 weather.getWeatherDescription(),
                 style: theme.textTheme.titleMedium?.copyWith(
-                  color: Colors.white,
+                  color: theme.brightness == Brightness.dark
+                      ? const Color(0xFF90CAF9) // Dark mode
+                      : Colors.white, // Light mode
                   fontWeight: FontWeight.w500,
                 ),
               ),
@@ -151,7 +155,8 @@ class CurrentWeatherCard extends StatelessWidget {
         );
   }
 
-  Widget _buildWeatherIcon(int weatherCode) {
+  Widget _buildWeatherIcon(BuildContext context, int weatherCode) {
+    final theme = Theme.of(context);
     IconData iconData;
     switch (weatherCode) {
       case 0:
@@ -199,7 +204,9 @@ class CurrentWeatherCard extends StatelessWidget {
     return Icon(
       iconData,
       size: 64.w,
-      color: Colors.white,
+      color: theme.brightness == Brightness.dark
+          ? const Color(0xFF90CAF9) // Dark mode
+          : Colors.white, // Light mode
     );
   }
 
@@ -214,21 +221,27 @@ class CurrentWeatherCard extends StatelessWidget {
       children: [
         Icon(
           icon,
-          color: Colors.white,
+          color: theme.brightness == Brightness.dark
+              ? const Color(0xFF90CAF9) // Dark mode
+              : Colors.white, // Light mode
           size: 24.w,
         ),
         SizedBox(height: 4.h),
         Text(
           label,
           style: theme.textTheme.bodySmall?.copyWith(
-            color: const Color.fromRGBO(255, 255, 255, 0.8),
+            color: theme.brightness == Brightness.dark
+                ? const Color(0xFF64B5F6).withAlpha(179) // Dark mode
+                : Colors.white.withAlpha(179), // Light mode
           ),
         ),
         SizedBox(height: 2.h),
         Text(
           value,
           style: theme.textTheme.bodyMedium?.copyWith(
-            color: Colors.white,
+            color: theme.brightness == Brightness.dark
+                ? const Color(0xFF90CAF9) // Dark mode
+                : Colors.white, // Light mode
             fontWeight: FontWeight.w500,
           ),
         ),

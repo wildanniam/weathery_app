@@ -54,7 +54,7 @@ class WeatherInfoMiniCards extends StatelessWidget {
 
     return Container(
       width: 100.w,
-      padding: EdgeInsets.all(12.w),
+      padding: EdgeInsets.all(8.w),
       decoration: BoxDecoration(
         color: theme.brightness == Brightness.dark
             ? const Color(0xFF1A237E) // Dark mode
@@ -93,10 +93,13 @@ class WeatherInfoMiniCards extends StatelessWidget {
               color: theme.brightness == Brightness.dark
                   ? const Color(0xFF64B5F6).withAlpha(179) // Dark mode
                   : theme.colorScheme.onSurface.withAlpha(179), // Light mode
+              fontSize: 10.sp,
             ),
             textAlign: TextAlign.center,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
           ),
-          SizedBox(height: 4.h),
+          SizedBox(height: 2.h),
           Text(
             value,
             style: theme.textTheme.bodyMedium?.copyWith(
@@ -104,8 +107,11 @@ class WeatherInfoMiniCards extends StatelessWidget {
               color: theme.brightness == Brightness.dark
                   ? const Color(0xFF90CAF9) // Dark mode
                   : theme.colorScheme.onSurface, // Light mode
+              fontSize: 12.sp,
             ),
             textAlign: TextAlign.center,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
           ),
         ],
       ),

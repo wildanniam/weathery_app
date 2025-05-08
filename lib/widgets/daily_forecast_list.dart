@@ -53,7 +53,7 @@ class DailyForecastList extends StatelessWidget {
     final color = _getWeatherColor(forecast.weatherCode);
 
     return Container(
-      padding: EdgeInsets.all(12.w),
+      padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 8.h),
       decoration: BoxDecoration(
         color: theme.brightness == Brightness.dark
             ? const Color(0xFF1A237E) // Dark mode
@@ -73,7 +73,7 @@ class DailyForecastList extends StatelessWidget {
         children: [
           // Hari
           SizedBox(
-            width: 100.w,
+            width: 90.w,
             child: Text(
               isToday ? 'Hari Ini' : dayFormat.format(forecast.date),
               style: theme.textTheme.bodyMedium?.copyWith(
@@ -81,18 +81,21 @@ class DailyForecastList extends StatelessWidget {
                 color: theme.brightness == Brightness.dark
                     ? const Color(0xFF90CAF9) // Dark mode
                     : theme.colorScheme.onSurface, // Light mode
+                fontSize: 12.sp,
               ),
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
             ),
           ),
           // Ikon Cuaca
           Icon(
             _getWeatherIcon(forecast.weatherCode),
-            size: 24.w,
+            size: 20.w,
             color: theme.brightness == Brightness.dark
                 ? const Color(0xFF90CAF9) // Dark mode
                 : color, // Light mode
           ),
-          SizedBox(width: 12.w),
+          SizedBox(width: 8.w),
           // Suhu dan Keterangan
           Expanded(
             child: Row(
@@ -105,15 +108,23 @@ class DailyForecastList extends StatelessWidget {
                     color: theme.brightness == Brightness.dark
                         ? const Color(0xFF90CAF9) // Dark mode
                         : theme.colorScheme.onSurface, // Light mode
+                    fontSize: 12.sp,
                   ),
                 ),
-                Text(
-                  _getWeatherDescription(forecast.weatherCode),
-                  style: theme.textTheme.bodyMedium?.copyWith(
-                    color: theme.brightness == Brightness.dark
-                        ? const Color(0xFF64B5F6).withAlpha(179) // Dark mode
-                        : theme.colorScheme.onSurface
-                            .withAlpha(179), // Light mode
+                SizedBox(width: 8.w),
+                Expanded(
+                  child: Text(
+                    _getWeatherDescription(forecast.weatherCode),
+                    style: theme.textTheme.bodyMedium?.copyWith(
+                      color: theme.brightness == Brightness.dark
+                          ? const Color(0xFF64B5F6).withAlpha(179) // Dark mode
+                          : theme.colorScheme.onSurface
+                              .withAlpha(179), // Light mode
+                      fontSize: 12.sp,
+                    ),
+                    textAlign: TextAlign.end,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
                   ),
                 ),
               ],
