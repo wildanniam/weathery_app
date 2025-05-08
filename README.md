@@ -2,16 +2,23 @@
 
 Aplikasi cuaca modern dan elegan yang dibangun dengan Flutter.
 
-## Fitur
+## Preview
 
-- Tampilan cuaca saat ini dengan animasi yang menarik
-- Prakiraan cuaca per jam untuk 12 jam ke depan
-- Prakiraan cuaca harian untuk 7 hari ke depan
-- Informasi cuaca detail (kelembaban, kecepatan angin, dll)
-- Tema gelap dan terang
-- Lokalisasi otomatis
-- Animasi transisi yang halus
-- UI yang responsif untuk berbagai ukuran layar
+<p align="center">
+  <img src="assets/lightmode.png" alt="Light Mode" width="250" style="border-radius:16px; box-shadow:0 2px 8px #0002; margin:8px;" />
+  <img src="assets/darkmode.png" alt="Dark Mode" width="250" style="border-radius:16px; box-shadow:0 2px 8px #0002; margin:8px;" />
+</p>
+
+## Fitur Unggulan
+
+- 🌤️ **Cuaca Saat Ini**: Tampilkan cuaca terkini dengan animasi dan ikon dinamis.
+- 🕒 **Prakiraan Per Jam**: Lihat prakiraan cuaca 12 jam ke depan dalam bentuk carousel interaktif.
+- 📅 **Prakiraan 7 Hari**: Tampilkan prakiraan cuaca harian lengkap dengan ikon dan suhu minimum/maksimum.
+- 📊 **Info Detail**: Kelembapan, kecepatan angin, tekanan udara, UV index, dan waktu matahari terbit.
+- 🌙 **Tema Gelap & Terang**: Otomatis menyesuaikan dengan preferensi sistem, atau bisa diubah manual.
+- 📱 **UI Responsif**: Tampilan tetap indah di berbagai ukuran layar, dari ponsel kecil hingga tablet.
+- 🚀 **Animasi Halus**: Transisi antar halaman dan komponen dengan animasi modern.
+- 📍 **Lokasi Otomatis**: Deteksi lokasi pengguna secara otomatis untuk menampilkan cuaca lokal.
 
 ## Persyaratan
 
@@ -24,7 +31,7 @@ Aplikasi cuaca modern dan elegan yang dibangun dengan Flutter.
 
 1. Clone repository ini:
 ```bash
-git clone https://github.com/username/weathery_app.git
+git clone https://github.com/wildanniam/weathery_app
 ```
 
 2. Masuk ke direktori proyek:
@@ -68,18 +75,22 @@ lib/
   └── main.dart
 ```
 
-## Penggunaan
+## Cara Penggunaan
 
-1. Buka aplikasi
-2. Izinkan akses lokasi saat diminta
-3. Aplikasi akan menampilkan informasi cuaca untuk lokasi Anda
-4. Gunakan tombol refresh di AppBar untuk memperbarui data
-5. Geser ke bawah untuk melihat prakiraan cuaca per jam
-6. Geser ke bawah lagi untuk melihat prakiraan cuaca harian
+1. Buka aplikasi Weatherify.
+2. Izinkan akses lokasi saat diminta.
+3. Aplikasi akan otomatis menampilkan cuaca di lokasi Anda.
+4. Swipe ke bawah untuk melihat prakiraan per jam dan harian.
+5. Gunakan tombol refresh di AppBar untuk memperbarui data.
+6. Ganti tema gelap/terang melalui ikon di AppBar.
 
 ## API yang Digunakan
 
-Aplikasi ini menggunakan [Open-Meteo API](https://open-meteo.com/) untuk data cuaca.
+Aplikasi ini menggunakan [Open-Meteo API](https://open-meteo.com/) untuk data cuaca real-time dan prakiraan.
+
+## Kontribusi
+
+Kontribusi sangat terbuka! Silakan fork repo ini, buat branch baru, dan ajukan pull request.
 
 ## Lisensi
 
