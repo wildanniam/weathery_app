@@ -83,3 +83,26 @@ class HourlyForecast {
     required this.weatherCode,
   });
 }
+
+class DailyForecast {
+  final DateTime date;
+  final double maxTemperature;
+  final double minTemperature;
+  final int weatherCode;
+
+  DailyForecast({
+    required this.date,
+    required this.maxTemperature,
+    required this.minTemperature,
+    required this.weatherCode,
+  });
+
+  factory DailyForecast.fromJson(Map<String, dynamic> json) {
+    return DailyForecast(
+      date: DateTime.parse(json['date']),
+      maxTemperature: json['maxTemperature'].toDouble(),
+      minTemperature: json['minTemperature'].toDouble(),
+      weatherCode: json['weatherCode'],
+    );
+  }
+}
