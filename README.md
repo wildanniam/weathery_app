@@ -7,6 +7,9 @@ Aplikasi cuaca modern dan elegan yang dibangun dengan Flutter.
 ![Light Mode](assets/lightmode.png)
 ![Dark Mode](assets/darkmode.png)
 
+<img width="315" alt="image" src="https://github.com/user-attachments/assets/b7fa78df-53a7-430f-9de4-afd1896ca12d" />
+
+
 ## Fitur Unggulan
 
 - 🌤️ **Cuaca Saat Ini**: Tampilkan cuaca terkini dengan animasi dan ikon dinamis.
