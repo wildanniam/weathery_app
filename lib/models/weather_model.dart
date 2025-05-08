@@ -2,30 +2,44 @@ class WeatherModel {
   final double temperature;
   final int weatherCode;
   final List<HourlyForecast> hourlyForecasts;
+  final List<DailyForecast> forecasts;
 
   WeatherModel({
     required this.temperature,
     required this.weatherCode,
     required this.hourlyForecasts,
+    required this.forecasts,
   });
 
   factory WeatherModel.fromJson(Map<String, dynamic> json) {
     final current = json['current_weather'];
     final hourly = json['hourly'];
+    final daily = json['daily'];
 
-    List<HourlyForecast> forecasts = [];
+    List<HourlyForecast> hourlyForecasts = [];
     for (int i = 0; i < hourly['time'].length; i++) {
-      forecasts.add(HourlyForecast(
+      hourlyForecasts.add(HourlyForecast(
         time: DateTime.parse(hourly['time'][i]),
         temperature: hourly['temperature_2m'][i].toDouble(),
         weatherCode: hourly['weathercode'][i],
       ));
     }
 
+    List<DailyForecast> dailyForecasts = [];
+    for (int i = 0; i < daily['time'].length; i++) {
+      dailyForecasts.add(DailyForecast(
+        date: DateTime.parse(daily['time'][i]),
+        maxTemperature: daily['temperature_2m_max'][i].toDouble(),
+        minTemperature: daily['temperature_2m_min'][i].toDouble(),
+        weatherCode: daily['weathercode'][i],
+      ));
+    }
+
     return WeatherModel(
       temperature: current['temperature'].toDouble(),
       weatherCode: current['weathercode'],
-      hourlyForecasts: forecasts,
+      hourlyForecasts: hourlyForecasts,
+      forecasts: dailyForecasts,
     );
   }
 

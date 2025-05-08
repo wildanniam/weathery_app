@@ -4,14 +4,12 @@ import 'package:google_fonts/google_fonts.dart';
 class AppTheme {
   // Light Theme Colors
   static const Color _lightPrimaryColor = Color(0xFF0D47A1);
-  static const Color _lightAccentColor = Color(0xFFFFC107);
   static const Color _lightBackgroundColor = Color(0xFFF5F7FA);
   static const Color _lightPrimaryTextColor = Color(0xFF212121);
   static const Color _lightSecondaryTextColor = Color(0xFF757575);
 
   // Dark Theme Colors
   static const Color _darkPrimaryColor = Color(0xFF1565C0);
-  static const Color _darkAccentColor = Color(0xFFFFD54F);
   static const Color _darkBackgroundColor = Color(0xFF121212);
   static const Color _darkPrimaryTextColor = Color(0xFFE0E0E0);
   static const Color _darkSecondaryTextColor = Color(0xFFBDBDBD);
@@ -19,15 +17,18 @@ class AppTheme {
   static ThemeData get lightTheme {
     return ThemeData(
       useMaterial3: true,
+      brightness: Brightness.light,
       colorScheme: const ColorScheme.light(
-        primary: _lightPrimaryColor,
-        secondary: _lightAccentColor,
+        primary: Color(0xFF2196F3),
+        secondary: Color(0xFF64B5F6),
         surface: Colors.white,
-        onPrimary: Colors.white,
-        onSecondary: _lightPrimaryTextColor,
-        onSurface: _lightPrimaryTextColor,
+        onSurface: Colors.black87,
+        error: Color(0xFFD32F2F),
+        onError: Colors.white,
       ),
-      scaffoldBackgroundColor: _lightBackgroundColor,
+      scaffoldBackgroundColor: Colors.white,
+      cardColor: Colors.white,
+      shadowColor: Colors.black.withOpacity(0.05),
       textTheme: GoogleFonts.poppinsTextTheme().copyWith(
         displayLarge: GoogleFonts.poppins(
           fontSize: 32,
@@ -97,15 +98,18 @@ class AppTheme {
   static ThemeData get darkTheme {
     return ThemeData(
       useMaterial3: true,
+      brightness: Brightness.dark,
       colorScheme: const ColorScheme.dark(
-        primary: _darkPrimaryColor,
-        secondary: _darkAccentColor,
+        primary: Color(0xFF90CAF9),
+        secondary: Color(0xFF64B5F6),
         surface: Color(0xFF1E1E1E),
-        onPrimary: Colors.white,
-        onSecondary: _darkPrimaryTextColor,
-        onSurface: _darkPrimaryTextColor,
+        onSurface: Color(0xFFE0E0E0),
+        error: Color(0xFFEF5350),
+        onError: Colors.white,
       ),
-      scaffoldBackgroundColor: _darkBackgroundColor,
+      scaffoldBackgroundColor: const Color(0xFF121212),
+      cardColor: const Color(0xFF1E1E1E),
+      shadowColor: Colors.black.withOpacity(0.2),
       textTheme: GoogleFonts.poppinsTextTheme().copyWith(
         displayLarge: GoogleFonts.poppins(
           fontSize: 32,

@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
 import '../providers/weather_provider.dart';
 import '../widgets/weather_app_bar.dart';
 import '../widgets/current_weather_card.dart';
 import '../widgets/weather_info_mini_cards.dart';
 import '../widgets/hourly_forecast_carousel.dart';
+import '../widgets/daily_forecast_list.dart';
+import '../core/layout/responsive_helper.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -13,75 +15,65 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final weatherProvider = Provider.of<WeatherProvider>(context);
+    final theme = Theme.of(context);
 
     return Scaffold(
+      backgroundColor: theme.colorScheme.surface,
       appBar: const WeatherAppBar(),
-      body: RefreshIndicator(
-        onRefresh: () => weatherProvider.fetchWeather(),
-        child: SingleChildScrollView(
-          physics: const AlwaysScrollableScrollPhysics(),
-          child: Padding(
-            padding: EdgeInsets.symmetric(vertical: 16.h),
-            child: Column(
-              children: [
-                if (weatherProvider.isLoading)
-                  const Center(
-                    child: CircularProgressIndicator(),
-                  )
-                else if (weatherProvider.error != null)
-                  Center(
-                    child: Padding(
-                      padding: EdgeInsets.all(16.w),
-                      child: Text(
-                        weatherProvider.error!,
-                        style: TextStyle(
-                          color: Colors.red,
-                          fontSize: 16.sp,
-                        ),
-                        textAlign: TextAlign.center,
-                      ),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: EdgeInsets.symmetric(
+            horizontal: ResponsiveHelper.getHorizontalPadding(context),
+            vertical: ResponsiveHelper.getVerticalPadding(context),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              if (weatherProvider.isLoading)
+                const Center(child: CircularProgressIndicator())
+              else if (weatherProvider.error != null)
+                Center(
+                  child: Text(
+                    weatherProvider.error!,
+                    style: theme.textTheme.bodyLarge?.copyWith(
+                      color: theme.colorScheme.error,
                     ),
-                  )
-                else if (weatherProvider.weather != null) ...[
-                  CurrentWeatherCard(weather: weatherProvider.weather!),
-                  SizedBox(height: 16.h),
-                  const WeatherInfoMiniCards(),
-                  SizedBox(height: 24.h),
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 16.w),
-                    child: Align(
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        'Prakiraan 12 Jam',
-                        style: TextStyle(
-                          fontSize: 18.sp,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
+                    textAlign: TextAlign.center,
                   ),
-                  SizedBox(height: 12.h),
-                  HourlyForecastCarousel(
-                    forecasts: weatherProvider.weather!.hourlyForecasts
-                        .take(12)
-                        .toList(),
+                )
+              else if (weatherProvider.weather != null) ...[
+                CurrentWeatherCard(weather: weatherProvider.weather!),
+                SizedBox(height: ResponsiveHelper.getSpacing(context)),
+                const WeatherInfoMiniCards(),
+                SizedBox(height: ResponsiveHelper.getSpacing(context)),
+                Text(
+                  'Prakiraan 12 Jam',
+                  style: theme.textTheme.titleMedium?.copyWith(
+                    fontSize: ResponsiveHelper.getTitleMedium(context),
+                    fontWeight: FontWeight.w600,
                   ),
-                ] else
-                  Center(
-                    child: Padding(
-                      padding: EdgeInsets.all(16.w),
-                      child: Text(
-                        'Tekan tombol refresh untuk memuat data cuaca',
-                        style: TextStyle(
-                          fontSize: 16.sp,
-                          color: Colors.grey,
-                        ),
-                        textAlign: TextAlign.center,
-                      ),
-                    ),
+                ),
+                SizedBox(height: 8.h),
+                HourlyForecastCarousel(
+                  forecasts: weatherProvider.weather!.hourlyForecasts
+                      .take(12)
+                      .toList(),
+                ),
+                SizedBox(height: ResponsiveHelper.getSpacing(context)),
+                Text(
+                  'Prakiraan 7 Hari',
+                  style: theme.textTheme.titleMedium?.copyWith(
+                    fontSize: ResponsiveHelper.getTitleMedium(context),
+                    fontWeight: FontWeight.w600,
                   ),
+                ),
+                SizedBox(height: 8.h),
+                DailyForecastList(
+                  forecasts:
+                      weatherProvider.weather!.forecasts.take(7).toList(),
+                ),
               ],
-            ),
+            ],
           ),
         ),
       ),

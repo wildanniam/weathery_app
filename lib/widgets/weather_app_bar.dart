@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../providers/weather_provider.dart';
+import '../providers/theme_provider.dart';
+import '../core/layout/responsive_helper.dart';
 
 class WeatherAppBar extends StatelessWidget implements PreferredSizeWidget {
   const WeatherAppBar({super.key});
@@ -13,6 +16,7 @@ class WeatherAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final weatherProvider = Provider.of<WeatherProvider>(context);
+    final themeProvider = Provider.of<ThemeProvider>(context);
 
     return Container(
       decoration: BoxDecoration(
@@ -21,19 +25,24 @@ class WeatherAppBar extends StatelessWidget implements PreferredSizeWidget {
           end: Alignment.bottomRight,
           colors: [
             theme.colorScheme.primary,
-            Color.fromRGBO(
-              (theme.colorScheme.primary.r * 255.0).round(),
-              (theme.colorScheme.primary.g * 255.0).round(),
-              (theme.colorScheme.primary.b * 255.0).round(),
-              0.8,
+            Color.fromARGB(
+              (0.8 * 255).round(),
+              (theme.colorScheme.primary.r * 255).round(),
+              (theme.colorScheme.primary.g * 255).round(),
+              (theme.colorScheme.primary.b * 255).round(),
             ),
           ],
         ),
-        boxShadow: const [
+        boxShadow: [
           BoxShadow(
-            color: Color.fromRGBO(0, 0, 0, 0.1),
+            color: Color.fromARGB(
+              (0.1 * 255).round(),
+              0,
+              0,
+              0,
+            ),
             blurRadius: 8,
-            offset: Offset(0, 2),
+            offset: const Offset(0, 2),
           ),
         ],
       ),
@@ -43,23 +52,28 @@ class WeatherAppBar extends StatelessWidget implements PreferredSizeWidget {
         centerTitle: true,
         title: Text(
           'Weatherify',
-          style: theme.textTheme.titleLarge?.copyWith(
+          style: TextStyle(
+            fontSize: ResponsiveHelper.getTitleLarge(context),
             fontWeight: FontWeight.bold,
             color: Colors.white,
           ),
         ),
         leading: IconButton(
-          icon: const Icon(Icons.location_on, color: Colors.white),
-          onPressed: () => weatherProvider.fetchWeather(),
+          icon: Icon(
+            Icons.location_on,
+            size: ResponsiveHelper.getIconSize(context),
+            color: Colors.white,
+          ),
+          onPressed: () => weatherProvider.fetchWeatherData(),
         ),
         actions: [
           if (weatherProvider.isLoading)
-            const Padding(
-              padding: EdgeInsets.all(16.0),
+            Padding(
+              padding: EdgeInsets.all(16.w),
               child: SizedBox(
-                width: 20,
-                height: 20,
-                child: CircularProgressIndicator(
+                width: ResponsiveHelper.getIconSize(context),
+                height: ResponsiveHelper.getIconSize(context),
+                child: const CircularProgressIndicator(
                   strokeWidth: 2,
                   valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
                 ),
@@ -72,11 +86,24 @@ class WeatherAppBar extends StatelessWidget implements PreferredSizeWidget {
                   duration: const Duration(seconds: 1),
                   curve: Curves.linear,
                 )
-          else
+          else ...[
             IconButton(
-              icon: const Icon(Icons.refresh, color: Colors.white),
-              onPressed: () => weatherProvider.fetchWeather(),
+              icon: Icon(
+                themeProvider.isDarkMode ? Icons.light_mode : Icons.dark_mode,
+                size: ResponsiveHelper.getIconSize(context),
+                color: Colors.white,
+              ),
+              onPressed: () => themeProvider.toggleTheme(),
             ),
+            IconButton(
+              icon: Icon(
+                Icons.refresh,
+                size: ResponsiveHelper.getIconSize(context),
+                color: Colors.white,
+              ),
+              onPressed: () => weatherProvider.fetchWeatherData(),
+            ),
+          ],
         ],
       ),
     );
