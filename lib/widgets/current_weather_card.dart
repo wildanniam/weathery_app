@@ -28,10 +28,18 @@ class CurrentWeatherCard extends StatelessWidget {
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(24.r),
-          gradient: const LinearGradient(
+          gradient: LinearGradient(
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
-            colors: [Color(0xFF2196F3), Color(0xFF64B5F6)],
+            colors: theme.brightness == Brightness.dark
+                ? [
+                    const Color(0xFF1A237E),
+                    const Color(0xFF0D47A1)
+                  ] // Dark mode
+                : [
+                    const Color(0xFF2196F3),
+                    const Color(0xFF64B5F6)
+                  ], // Light mode
           ),
         ),
         child: Padding(
@@ -50,7 +58,9 @@ class CurrentWeatherCard extends StatelessWidget {
                         Text(
                           'Jakarta, ID',
                           style: theme.textTheme.titleLarge?.copyWith(
-                            color: Colors.white,
+                            color: theme.brightness == Brightness.dark
+                                ? const Color(0xFF90CAF9) // Dark mode
+                                : Colors.white,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
@@ -58,7 +68,10 @@ class CurrentWeatherCard extends StatelessWidget {
                         Text(
                           '${dateFormat.format(now)} • ${timeFormat.format(now)}',
                           style: theme.textTheme.bodyMedium?.copyWith(
-                            color: const Color.fromRGBO(255, 255, 255, 0.8),
+                            color: theme.brightness == Brightness.dark
+                                ? const Color(0xFF64B5F6)
+                                    .withAlpha(179) // Dark mode
+                                : Colors.white.withAlpha(179),
                           ),
                         ),
                       ],
@@ -99,7 +112,9 @@ class CurrentWeatherCard extends StatelessWidget {
               Container(
                 padding: EdgeInsets.all(16.w),
                 decoration: BoxDecoration(
-                  color: const Color.fromRGBO(255, 255, 255, 0.1),
+                  color: theme.brightness == Brightness.dark
+                      ? const Color(0xFF0D47A1).withAlpha(102) // Dark mode
+                      : Colors.white.withAlpha(102), // Light mode
                   borderRadius: BorderRadius.circular(16.r),
                 ),
                 child: Row(

@@ -24,23 +24,31 @@ class WeatherAppBar extends StatelessWidget implements PreferredSizeWidget {
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
           colors: [
-            theme.colorScheme.primary,
-            Color.fromARGB(
-              (0.8 * 255).round(),
-              (theme.colorScheme.primary.r * 255).round(),
-              (theme.colorScheme.primary.g * 255).round(),
-              (theme.colorScheme.primary.b * 255).round(),
-            ),
+            themeProvider.isDarkMode
+                ? const Color(0xFF1A237E) // Biru gelap untuk dark mode
+                : theme.colorScheme.primary,
+            themeProvider.isDarkMode
+                ? const Color(
+                    0xFF0D47A1) // Biru gelap yang lebih terang untuk dark mode
+                : Color.fromARGB(
+                    (0.8 * 255).round(),
+                    (theme.colorScheme.primary.r * 255).round(),
+                    (theme.colorScheme.primary.g * 255).round(),
+                    (theme.colorScheme.primary.b * 255).round(),
+                  ),
           ],
         ),
         boxShadow: [
           BoxShadow(
-            color: Color.fromARGB(
-              (0.1 * 255).round(),
-              0,
-              0,
-              0,
-            ),
+            color: themeProvider.isDarkMode
+                ? const Color(0xFF64B5F6)
+                    .withAlpha(26) // Bayangan biru muda untuk dark mode
+                : Color.fromARGB(
+                    (0.1 * 255).round(),
+                    0,
+                    0,
+                    0,
+                  ),
             blurRadius: 8,
             offset: const Offset(0, 2),
           ),
@@ -55,14 +63,18 @@ class WeatherAppBar extends StatelessWidget implements PreferredSizeWidget {
           style: TextStyle(
             fontSize: ResponsiveHelper.getTitleLarge(context),
             fontWeight: FontWeight.bold,
-            color: Colors.white,
+            color: themeProvider.isDarkMode
+                ? const Color(0xFF90CAF9) // Biru muda untuk dark mode
+                : Colors.white,
           ),
         ),
         leading: IconButton(
           icon: Icon(
             Icons.location_on,
             size: ResponsiveHelper.getIconSize(context),
-            color: Colors.white,
+            color: themeProvider.isDarkMode
+                ? const Color(0xFF90CAF9) // Biru muda untuk dark mode
+                : Colors.white,
           ),
           onPressed: () => weatherProvider.fetchWeatherData(),
         ),
@@ -73,9 +85,13 @@ class WeatherAppBar extends StatelessWidget implements PreferredSizeWidget {
               child: SizedBox(
                 width: ResponsiveHelper.getIconSize(context),
                 height: ResponsiveHelper.getIconSize(context),
-                child: const CircularProgressIndicator(
+                child: CircularProgressIndicator(
                   strokeWidth: 2,
-                  valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                  valueColor: AlwaysStoppedAnimation<Color>(
+                    themeProvider.isDarkMode
+                        ? const Color(0xFF90CAF9) // Biru muda untuk dark mode
+                        : Colors.white,
+                  ),
                 ),
               ),
             )
@@ -91,7 +107,9 @@ class WeatherAppBar extends StatelessWidget implements PreferredSizeWidget {
               icon: Icon(
                 themeProvider.isDarkMode ? Icons.light_mode : Icons.dark_mode,
                 size: ResponsiveHelper.getIconSize(context),
-                color: Colors.white,
+                color: themeProvider.isDarkMode
+                    ? const Color(0xFF90CAF9) // Biru muda untuk dark mode
+                    : Colors.white,
               ),
               onPressed: () => themeProvider.toggleTheme(),
             ),
@@ -99,7 +117,9 @@ class WeatherAppBar extends StatelessWidget implements PreferredSizeWidget {
               icon: Icon(
                 Icons.refresh,
                 size: ResponsiveHelper.getIconSize(context),
-                color: Colors.white,
+                color: themeProvider.isDarkMode
+                    ? const Color(0xFF90CAF9) // Biru muda untuk dark mode
+                    : Colors.white,
               ),
               onPressed: () => weatherProvider.fetchWeatherData(),
             ),

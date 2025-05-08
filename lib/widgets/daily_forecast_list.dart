@@ -55,16 +55,15 @@ class DailyForecastList extends StatelessWidget {
     return Container(
       padding: EdgeInsets.all(12.w),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: theme.brightness == Brightness.dark
+            ? const Color(0xFF1A237E) // Dark mode
+            : Colors.white, // Light mode
         borderRadius: BorderRadius.circular(16.r),
         boxShadow: [
           BoxShadow(
-            color: Color.fromARGB(
-              (0.05 * 255).round(),
-              0,
-              0,
-              0,
-            ),
+            color: theme.brightness == Brightness.dark
+                ? const Color(0xFF64B5F6).withAlpha(26) // Dark mode
+                : const Color.fromRGBO(0, 0, 0, 0.05), // Light mode
             blurRadius: 8,
             offset: const Offset(0, 2),
           ),
@@ -79,7 +78,9 @@ class DailyForecastList extends StatelessWidget {
               isToday ? 'Hari Ini' : dayFormat.format(forecast.date),
               style: theme.textTheme.bodyMedium?.copyWith(
                 fontWeight: FontWeight.w500,
-                color: theme.colorScheme.onSurface,
+                color: theme.brightness == Brightness.dark
+                    ? const Color(0xFF90CAF9) // Dark mode
+                    : theme.colorScheme.onSurface, // Light mode
               ),
             ),
           ),
@@ -87,7 +88,9 @@ class DailyForecastList extends StatelessWidget {
           Icon(
             _getWeatherIcon(forecast.weatherCode),
             size: 24.w,
-            color: color,
+            color: theme.brightness == Brightness.dark
+                ? const Color(0xFF90CAF9) // Dark mode
+                : color, // Light mode
           ),
           SizedBox(width: 12.w),
           // Suhu dan Keterangan
@@ -99,18 +102,18 @@ class DailyForecastList extends StatelessWidget {
                   '${forecast.maxTemperature.toStringAsFixed(1)}° / ${forecast.minTemperature.toStringAsFixed(1)}°',
                   style: theme.textTheme.bodyMedium?.copyWith(
                     fontWeight: FontWeight.w600,
-                    color: theme.colorScheme.onSurface,
+                    color: theme.brightness == Brightness.dark
+                        ? const Color(0xFF90CAF9) // Dark mode
+                        : theme.colorScheme.onSurface, // Light mode
                   ),
                 ),
                 Text(
                   _getWeatherDescription(forecast.weatherCode),
                   style: theme.textTheme.bodyMedium?.copyWith(
-                    color: Color.fromARGB(
-                      (0.7 * 255).round(),
-                      theme.colorScheme.onSurface.r.toInt(),
-                      theme.colorScheme.onSurface.g.toInt(),
-                      theme.colorScheme.onSurface.b.toInt(),
-                    ),
+                    color: theme.brightness == Brightness.dark
+                        ? const Color(0xFF64B5F6).withAlpha(179) // Dark mode
+                        : theme.colorScheme.onSurface
+                            .withAlpha(179), // Light mode
                   ),
                 ),
               ],

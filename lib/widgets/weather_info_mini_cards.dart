@@ -56,17 +56,23 @@ class WeatherInfoMiniCards extends StatelessWidget {
       width: 100.w,
       padding: EdgeInsets.all(12.w),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: theme.brightness == Brightness.dark
+            ? const Color(0xFF1A237E) // Dark mode
+            : Colors.white, // Light mode
         borderRadius: BorderRadius.circular(16.r),
         border: Border.all(
-          color: const Color(0xFFE0E0E0),
+          color: theme.brightness == Brightness.dark
+              ? const Color(0xFF64B5F6).withAlpha(51) // Dark mode
+              : const Color(0xFFE0E0E0), // Light mode
           width: 1,
         ),
-        boxShadow: const [
+        boxShadow: [
           BoxShadow(
-            color: Color.fromRGBO(0, 0, 0, 0.05),
+            color: theme.brightness == Brightness.dark
+                ? const Color(0xFF64B5F6).withAlpha(26) // Dark mode
+                : const Color.fromRGBO(0, 0, 0, 0.05), // Light mode
             blurRadius: 8,
-            offset: Offset(0, 2),
+            offset: const Offset(0, 2),
           ),
         ],
       ),
@@ -76,18 +82,17 @@ class WeatherInfoMiniCards extends StatelessWidget {
           Icon(
             icon,
             size: 24.w,
-            color: theme.colorScheme.primary,
+            color: theme.brightness == Brightness.dark
+                ? const Color(0xFF90CAF9) // Dark mode
+                : theme.colorScheme.primary, // Light mode
           ),
           SizedBox(height: 8.h),
           Text(
             label,
             style: theme.textTheme.bodySmall?.copyWith(
-              color: Color.fromRGBO(
-                (theme.colorScheme.onSurface.r * 255.0).round(),
-                (theme.colorScheme.onSurface.g * 255.0).round(),
-                (theme.colorScheme.onSurface.b * 255.0).round(),
-                0.7,
-              ),
+              color: theme.brightness == Brightness.dark
+                  ? const Color(0xFF64B5F6).withAlpha(179) // Dark mode
+                  : theme.colorScheme.onSurface.withAlpha(179), // Light mode
             ),
             textAlign: TextAlign.center,
           ),
@@ -96,7 +101,9 @@ class WeatherInfoMiniCards extends StatelessWidget {
             value,
             style: theme.textTheme.bodyMedium?.copyWith(
               fontWeight: FontWeight.w600,
-              color: theme.colorScheme.onSurface,
+              color: theme.brightness == Brightness.dark
+                  ? const Color(0xFF90CAF9) // Dark mode
+                  : theme.colorScheme.onSurface, // Light mode
             ),
             textAlign: TextAlign.center,
           ),

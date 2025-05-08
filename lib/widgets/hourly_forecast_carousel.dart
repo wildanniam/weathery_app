@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_animate/flutter_animate.dart';
 import 'package:intl/intl.dart';
 import '../models/weather_model.dart';
 
@@ -23,97 +22,71 @@ class HourlyForecastCarousel extends StatelessWidget {
         itemBuilder: (context, index) {
           final forecast = forecasts[index];
           final isCurrentHour = index == 0;
+          final color = _getWeatherColor(forecast.weatherCode);
 
           return Padding(
             padding: EdgeInsets.only(right: 12.w),
-            child: _buildForecastItem(
-              context,
-              forecast,
-              isCurrentHour,
+            child: Container(
+              width: 80.w,
+              padding: EdgeInsets.symmetric(vertical: 16.h, horizontal: 12.w),
+              decoration: BoxDecoration(
+                color: Theme.of(context).brightness == Brightness.dark
+                    ? const Color(0xFF1A237E) // Dark mode
+                    : Colors.white, // Light mode
+                borderRadius: BorderRadius.circular(30.r),
+                border: Border.all(
+                  color: Theme.of(context).brightness == Brightness.dark
+                      ? color.withAlpha(51) // Dark mode
+                      : color.withAlpha(26), // Light mode
+                  width: 1,
+                ),
+                boxShadow: [
+                  BoxShadow(
+                    color: Theme.of(context).brightness == Brightness.dark
+                        ? color.withAlpha(26) // Dark mode
+                        : color.withAlpha(13), // Light mode
+                    blurRadius: 8,
+                    offset: const Offset(0, 2),
+                  ),
+                ],
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    isCurrentHour
+                        ? 'Sekarang'
+                        : DateFormat('HH:mm').format(forecast.time),
+                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                          color: Theme.of(context).brightness == Brightness.dark
+                              ? const Color(0xFF90CAF9) // Dark mode
+                              : color, // Light mode
+                          fontWeight: FontWeight.w500,
+                        ),
+                  ),
+                  SizedBox(height: 8.h),
+                  Icon(
+                    _getWeatherIcon(forecast.weatherCode),
+                    size: 24.w,
+                    color: Theme.of(context).brightness == Brightness.dark
+                        ? const Color(0xFF90CAF9) // Dark mode
+                        : color, // Light mode
+                  ),
+                  SizedBox(height: 8.h),
+                  Text(
+                    '${forecast.temperature.toStringAsFixed(1)}°',
+                    style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                          color: Theme.of(context).brightness == Brightness.dark
+                              ? const Color(0xFF90CAF9) // Dark mode
+                              : color, // Light mode
+                          fontWeight: FontWeight.w600,
+                        ),
+                  ),
+                ],
+              ),
             ),
-          )
-              .animate(
-                onPlay: (controller) => controller.repeat(),
-              )
-              .slideX(
-                begin: 0.2,
-                end: 0,
-                duration: const Duration(milliseconds: 400),
-                curve: Curves.easeOut,
-                delay: Duration(milliseconds: index * 100),
-              );
+          );
         },
-      ),
-    );
-  }
-
-  Widget _buildForecastItem(
-    BuildContext context,
-    HourlyForecast forecast,
-    bool isCurrentHour,
-  ) {
-    final theme = Theme.of(context);
-    final timeFormat = DateFormat('HH:mm');
-    final color = _getWeatherColor(forecast.weatherCode);
-
-    // Menggunakan Color.fromARGB untuk opacity
-    final borderColor = Color.fromARGB(
-      (0.2 * 255).round(),
-      (color.toARGB32() >> 16) & 0xFF,
-      (color.toARGB32() >> 8) & 0xFF,
-      color.toARGB32() & 0xFF,
-    );
-
-    final shadowColor = Color.fromARGB(
-      (0.1 * 255).round(),
-      (color.toARGB32() >> 16) & 0xFF,
-      (color.toARGB32() >> 8) & 0xFF,
-      color.toARGB32() & 0xFF,
-    );
-
-    return Container(
-      width: 80.w,
-      padding: EdgeInsets.symmetric(vertical: 16.h, horizontal: 12.w),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(30.r),
-        border: Border.all(
-          color: borderColor,
-          width: 1,
-        ),
-        boxShadow: [
-          BoxShadow(
-            color: shadowColor,
-            blurRadius: 8,
-            offset: const Offset(0, 2),
-          ),
-        ],
-      ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text(
-            isCurrentHour ? 'Sekarang' : timeFormat.format(forecast.time),
-            style: theme.textTheme.bodySmall?.copyWith(
-              color: color,
-              fontWeight: FontWeight.w500,
-            ),
-          ),
-          SizedBox(height: 8.h),
-          Icon(
-            _getWeatherIcon(forecast.weatherCode),
-            size: 24.w,
-            color: color,
-          ),
-          SizedBox(height: 8.h),
-          Text(
-            '${forecast.temperature.toStringAsFixed(1)}°',
-            style: theme.textTheme.titleMedium?.copyWith(
-              color: color,
-              fontWeight: FontWeight.w600,
-            ),
-          ),
-        ],
       ),
     );
   }
