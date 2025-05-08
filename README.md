@@ -4,10 +4,8 @@ Aplikasi cuaca modern dan elegan yang dibangun dengan Flutter.
 
 ## Preview
 
-<p align="center">
-  <img src="assets/lightmode.png" alt="Light Mode" width="250" style="border-radius:16px; box-shadow:0 2px 8px #0002; margin:8px;" />
-  <img src="assets/darkmode.png" alt="Dark Mode" width="250" style="border-radius:16px; box-shadow:0 2px 8px #0002; margin:8px;" />
-</p>
+![Light Mode](assets/lightmode.png)
+![Dark Mode](assets/darkmode.png)
 
 ## Fitur Unggulan
 
